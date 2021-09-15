@@ -12,8 +12,11 @@ class ExpensesApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: MyHomePage(),
-    );
+        home: MyHomePage(),
+        theme: ThemeData(
+            primarySwatch: Colors.deepPurple,
+            accentColor: Colors.amber,
+            fontFamily: 'Quicksand'));
   }
 }
 
@@ -23,20 +26,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final _transactions = [
-    Transaction(
-        id: '1',
-        title: 'Novo tênis de corrida',
-        value: 300.9,
-        date: DateTime.now()),
-    Transaction(
-        id: '2', title: 'Conta de Luz', value: 159.99, date: DateTime.now()),
-    Transaction(
-        id: '3',
-        title: 'Novo tênis de treino',
-        value: 300.9,
-        date: DateTime.now()),
-  ];
+  final _transactions = <Transaction>[];
 
   _addTransaction(String title, double value) {
     final newTransaction = Transaction(
@@ -64,7 +54,9 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Despesas Pessoais'),
+        title: Text('Despesas Pessoais',
+            style:
+                TextStyle(fontFamily: 'OpenSans', fontWeight: FontWeight.bold)),
         actions: [
           IconButton(
               onPressed: () => _openTransactionFormModal(context),
