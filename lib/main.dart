@@ -1,3 +1,4 @@
+import 'package:expenses/components/chart.dart';
 import 'package:expenses/components/transaction_form.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
@@ -28,18 +29,32 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final _transactions = <Transaction>[];
 
-  _addTransaction(String title, double value) {
+  List<Transaction> get _recentTransactions {
+    return _transactions.where((transaction) {
+      final DateTime limitDate = DateTime.now().subtract(Duration(days: 7));
+      return transaction.date.isAfter(limitDate);
+    }).toList();
+  }
+
+  _addTransaction(String title, double value, DateTime date) {
     final newTransaction = Transaction(
-        id: Random().nextDouble().toString(),
-        title: title,
-        value: value,
-        date: DateTime.now());
+      id: Random().nextDouble().toString(),
+      title: title,
+      value: value,
+      date: date,
+    );
 
     setState(() {
       _transactions.add(newTransaction);
     });
 
     Navigator.of(context).pop();
+  }
+
+  _deleteTransaction(String id) {
+    setState(() {
+      _transactions.removeWhere((element) => element.id == id);
+    });
   }
 
   _openTransactionFormModal(BuildContext context) {
@@ -68,11 +83,8 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Card(
-              child: Text('Gráfico'),
-              elevation: 5,
-            ),
-            TransactionList(_transactions),
+            Chart(_recentTransactions),
+            TransactionList(_transactions, _deleteTransaction),
           ],
         ),
       ),
