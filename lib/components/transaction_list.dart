@@ -8,6 +8,17 @@ class TransactionList extends StatelessWidget {
 
   TransactionList(this.transactions, this.deleteTransaction);
 
+  String avatarText(value) {
+    if (value >= 1000000) {
+      value = value / 1000000;
+      return 'R\$${value.toStringAsFixed(2).replaceAll('.', ',')}M';
+    } else if (value >= 1000) {
+      value = value / 1000;
+      return 'R\$${value.toStringAsFixed(2).replaceAll('.', ',')}k';
+    } else
+      return 'R\$${value.toStringAsFixed(2).replaceAll('.', ',')}';
+  }
+
   @override
   Widget build(BuildContext context) {
     return transactions.isEmpty
@@ -46,9 +57,9 @@ class TransactionList extends StatelessWidget {
                       child: Padding(
                         padding: const EdgeInsets.all(6),
                         child: FittedBox(
-                            fit: BoxFit.contain,
-                            child: Text(
-                                'R\$${transaction.value.toStringAsFixed(2).replaceAll('.', ',')}')),
+                          fit: BoxFit.contain,
+                          child: Text(avatarText(transaction.value)),
+                        ),
                       ),
                       radius: 30),
                   title: Text(
