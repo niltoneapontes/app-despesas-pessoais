@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'dart:math';
 
 import 'package:expenses/models/transaction.dart';
+import 'package:flutter/services.dart';
 import './components/transaction_form.dart';
 import './components/transaction_list.dart';
 
@@ -12,6 +13,12 @@ main() => runApp(ExpensesApp());
 class ExpensesApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    // SystemChrome.setPreferredOrientations([
+    //   DeviceOrientation.portraitUp,
+    //   DeviceOrientation.landscapeLeft,
+    //   DeviceOrientation.landscapeRight,
+    // ]);
+
     return MaterialApp(
         home: MyHomePage(),
         theme: ThemeData(
@@ -68,9 +75,13 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     final appBar = AppBar(
-      title: Text('Despesas Pessoais',
-          style:
-              TextStyle(fontFamily: 'OpenSans', fontWeight: FontWeight.bold)),
+      title: Text(
+        'Despesas Pessoais',
+        style: TextStyle(
+            fontFamily: 'OpenSans',
+            fontWeight: FontWeight.bold,
+            fontSize: 20 * MediaQuery.of(context).textScaleFactor),
+      ),
       actions: [
         IconButton(
             onPressed: () => _openTransactionFormModal(context),

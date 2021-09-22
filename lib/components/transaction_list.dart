@@ -13,15 +13,19 @@ class TransactionList extends StatelessWidget {
     return transactions.isEmpty
         ? Column(
             children: [
-              Text('Não há transações cadastradas',
-                  style: Theme.of(context).textTheme.headline6),
+              Padding(
+                padding: const EdgeInsets.only(top: 24),
+                child: Text('Não há transações cadastradas',
+                    style: Theme.of(context).textTheme.headline6),
+              ),
               Container(
                 height: 200,
                 margin: EdgeInsets.only(top: 32),
-                child: Image.asset(
-                  'assets/images/waiting.png',
-                  fit: BoxFit.cover,
-                ),
+                // child: Image.asset(
+                //   'assets/images/waiting.png',
+                //   fit: BoxFit.cover,
+                // ),
+                child: Text('😴', style: TextStyle(fontSize: 56)),
               )
             ],
           )
