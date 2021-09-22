@@ -93,10 +93,16 @@ class _MyHomePageState extends State<MyHomePage> {
             );
     }
 
+    final iconList =
+        Platform.isIOS ? CupertinoIcons.arrow_right_arrow_left : Icons.list;
+    final iconChart = Platform.isIOS
+        ? CupertinoIcons.arrow_right_arrow_left
+        : Icons.pie_chart;
+
     final actions = [
       if (isLandscape)
         _getIconButton(
-          _showChart ? Icons.list : Icons.pie_chart,
+          _showChart ? iconList : iconChart,
           () {
             setState(() {
               _showChart = !_showChart;
@@ -123,7 +129,8 @@ class _MyHomePageState extends State<MyHomePage> {
         appBar.preferredSize.height -
         MediaQuery.of(context).padding.top;
 
-    final pageBody = SingleChildScrollView(
+    final pageBody = SafeArea(
+        child: SingleChildScrollView(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -156,7 +163,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
         ],
       ),
-    );
+    ));
 
     return Platform.isIOS
         ? CupertinoPageScaffold(
